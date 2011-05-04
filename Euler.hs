@@ -47,7 +47,7 @@ fibs n0 n1 = fibs'
       fibs' = n0 : n1 : zipWith (+) fibs' (tail fibs')
 
 palindrome :: Eq a => [a] -> Bool
-palindrome xs = xs == (reverse xs)
+palindrome xs = xs == reverse xs
 
 divides :: Int -> Int -> Bool
 x `divides` y = y `rem` x == 0
