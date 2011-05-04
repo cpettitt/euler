@@ -1,6 +1,8 @@
 import Data.Char (digitToInt)
 import Data.List (group)
 
+import PrimeGen (primes)
+
 main :: IO ()
 main = mapM_ showAnswer
           [("prob1",   prob1)
@@ -12,6 +14,7 @@ main = mapM_ showAnswer
           ,("prob7",   prob7)
           ,("prob8",   prob8)
           ,("prob9",   prob9)
+          ,("prob10",  prob10)
           ]
     where
       showAnswer (name, f) = putStrLn $ name ++ " = " ++ show f
@@ -37,9 +40,10 @@ prob5 :: Int
 prob5 = foldr lcm 1 [2..20]
 
 prob6 :: Int
-prob6 = sum xs ^ 2 - sum (map (^2) xs)
+prob6 = sq (sum xs) - sum (map sq xs)
     where
-      xs = [1..100]
+      xs   = [1..100]
+      sq x = x * x
 
 prob7 :: Int
 prob7 = primes !! 10000
@@ -55,7 +59,10 @@ prob9 = head [ x * y * z
                 , y <- [1..z-1]
                 , x <- [1000 - z - y]
                 , x < y
-                , x ^ 2 + y ^ 2 == z ^ 2 ]
+                , x * x + y * y == z * z ]
+
+prob10 :: Int
+prob10 = sum $ takeWhile (< 2 * 1000 * 1000) primes
 
 
 {-------------------------------------------------------------------------------
@@ -81,12 +88,6 @@ primeFactors x = d : primeFactors (x `div` d)
 -- constraint, this equation runs in O(n) and works with infinite lists.
 uniq :: Eq a => [a] -> [a]
 uniq = map head . group
-
--- | Generates an infinite, lazy list of primes using the sieve of eratosthenes
-primes :: [Int]
-primes = 2 : go [3, 5 ..]
-    where
-      go (x:xs) = x : go (filter (not . (x `divides`)) xs)
 
 -- | Generates an infinite, lazy list of fibonacci numbers using the arguments
 -- as the first two numbers in the sequence.
