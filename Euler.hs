@@ -1,5 +1,5 @@
 import Data.Function (on)
-import Data.List (foldl', group)
+import Data.List (foldl', group, sort)
 
 {-------------------------------------------------------------------------------
  - Problems
@@ -13,6 +13,7 @@ prob3 = last $ uniq $ primeFactors 600851475143
 
 prob4 = maximum $ filter (palindrome . show) [x * y | x <- [1..999], y <- [1..x]]
 
+prob5 = foldr lcm 1 [2..20]
 
 {-------------------------------------------------------------------------------
  - Helpers
