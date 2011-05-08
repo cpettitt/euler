@@ -20,7 +20,7 @@ sieve (Wheel s ns : ws) ps qs =
            , n' <- [ n + o ]
            , s <= 2 || noFactorIn ps qs n' ]
       ++ sieve ws (tail ps) (tail qs)
-sieve _ _ _ = error $ "sieve: will never reach this"
+sieve _ _ _ = error "sieve: will never reach this"
 
 nextSize :: Wheel -> Int -> Wheel
 nextSize (Wheel s ns) p = Wheel (s * p) [ n' | o  <- [0, s .. (p - 1) * s]
@@ -30,7 +30,7 @@ nextSize (Wheel s ns) p = Wheel (s * p) [ n' | o  <- [0, s .. (p - 1) * s]
 
 noFactorIn :: [Int] -> [Int] -> Int -> Bool
 noFactorIn (p:ps) (q:qs) x = q > x || x `mod` p > 0 && noFactorIn ps qs x
-noFactorIn _ _ _ = error $ "noFactorIn: will never reach this"
+noFactorIn _ _ _ = error "noFactorIn: will never reach this"
 
 primeSquares :: [Int]
 primeSquares = map (\x -> x * x) primes
