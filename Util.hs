@@ -34,5 +34,26 @@ fibs n0 n1 = fibs'
 palindrome :: Eq a => [a] -> Bool
 palindrome xs = xs == reverse xs
 
+rot45 :: [[Int]] -> [[Int]]
+rot45 [] = []
+rot45 xs = xs' `seq` go (w - 1) []
+    where
+      w   = length (head xs)
+      h   = length xs
+      wh  = w * h
+      xs'
+        | all ((== w) . length) xs = concat xs
+        | otherwise = error "rot45: mixed dimensions in inner arrays"
+
+      go :: Int -> [[Int]] -> [[Int]]
+      go i as
+        | i == wh          = reverse as
+        | i >= w || i == 0 = go (i + w) (expand i (min (h - (i `div` w)) w) : as)
+        | otherwise        = go (i - 1) (expand i (min (w - i) h)           : as)
+
+      expand :: Int -> Int -> [Int]
+      expand _ 0 = []
+      expand i n = xs' !! i : expand (i + w + 1) (n - 1)
+
 divides :: Int -> Int -> Bool
 x `divides` y = y `rem` x == 0
