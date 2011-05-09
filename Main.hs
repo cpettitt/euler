@@ -22,6 +22,7 @@ main = mapM_ showAnswer
           ,("prob11",  prob11)
           ,("prob14",  prob14)
           ,("prob15",  prob15)
+          ,("prob25",  prob25)
           ]
     where
       showAnswer (name, f) = putStrLn $ name ++ " = " ++ show f
@@ -104,8 +105,11 @@ prob14 = fst $ maximumBy (comparing snd) (map (\x -> (x, go x 1)) [1..999999])
         | otherwise = go (3 * n + 1) (a + 1)
 
 prob15 :: Int
-prob15 = last $ go (take 21 $ repeat 1) 21
+prob15 = last $ go (replicate 21 1) 21
     where
       go :: [Int] -> Int -> [Int]
       go xs 1 = xs
       go xs n = go (scanl1 (+) xs) (n - 1)
+
+prob25 :: Int
+prob25 = fst $ head $ filter ((> fromInteger (10^999)) . snd) $ zip [1..] (fibs 1 1)

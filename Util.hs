@@ -26,7 +26,7 @@ uniq = map head . group
 
 -- | Generates an infinite, lazy list of fibonacci numbers using the arguments
 -- as the first two numbers in the sequence.
-fibs :: Int -> Int -> [Int]
+fibs :: Integral a => a -> a -> [a]
 fibs n0 n1 = fibs'
     where
       fibs' = n0 : n1 : zipWith (+) fibs' (tail fibs')
