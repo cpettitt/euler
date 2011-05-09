@@ -101,3 +101,9 @@ prob14 = fst $ maximumBy (comparing snd) (map (\x -> (x, go x 1)) [1..999999])
       go n a
         | even n    = go (n `div` 2) (a + 1)
         | otherwise = go (3 * n + 1) (a + 1)
+
+prob15 :: Int
+prob15 = last $ go (take 21 $ repeat 1) 21
+    where
+      go xs 1 = xs
+      go xs n = go (scanl1 (+) xs) (n - 1)
