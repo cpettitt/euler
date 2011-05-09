@@ -1,6 +1,6 @@
 module Util where
 
-import Data.List (group)
+import Data.List (group, nub, subsequences)
 
 import PrimeGen (primes)
 
@@ -18,6 +18,10 @@ primeFactors x = d : primeFactors (x `div` d)
     where
       d = head $ filter (`divides` x) primes
 
+-- | Unique factors (including trivial factors) for a given number.
+factors :: Int -> [Int]
+factors = nub . map product . subsequences . primeFactors
+
 -- | Given an ordered list, this equation returns a new ordered list with all
 -- duplicates removed. This is similar to `nub`, but with the ordered
 -- constraint, this equation runs in O(n) and works with infinite lists.
@@ -33,6 +37,9 @@ fibs n0 n1 = fibs'
 
 palindrome :: Eq a => [a] -> Bool
 palindrome xs = xs == reverse xs
+
+triangleNums :: [Int]
+triangleNums = scanl1 (+) [1..]
 
 rot45 :: [[Int]] -> [[Int]]
 rot45 [] = []

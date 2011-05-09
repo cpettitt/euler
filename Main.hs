@@ -20,6 +20,7 @@ main = mapM_ showAnswer
           ,("prob9",   prob9)
           ,("prob10",  prob10)
           ,("prob11",  prob11)
+          ,("prob12",  prob12)
           ,("prob14",  prob14)
           ,("prob15",  prob15)
           ,("prob25",  prob25)
@@ -94,6 +95,9 @@ prob11 = maximum $ concatMap (map product . groupsOf 4 . intercalate [0,0,0]) [l
              ,[20,69,36,41,72,30,23,88,34,62,99,69,82,67,59,85,74,04,36,16]
              ,[20,73,35,29,78,31,90,01,74,31,49,71,48,86,81,16,23,57,05,54]
              ,[01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48]]
+
+prob12 :: Int
+prob12 = last $ head $ filter ((> 500) . length) $ map factors triangleNums
 
 prob14 :: Int
 prob14 = fst $ maximumBy (comparing snd) (map (\x -> (x, go x 1)) [1..999999])
